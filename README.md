@@ -2,11 +2,11 @@
 
 触发的分支全部是 release 分支,用哪个自己改。不然我这 push 一次运行一堆了 😄
 
-## 需要创建.github/workflows 文件夹存放
+需要创建.github/workflows 文件夹存放
 
-## 关于 uses 使用文档[查看](https://github.com/marketplace?type=actions)
+关于 uses 使用文档[查看](https://github.com/marketplace?type=actions)
 
-## yml 文件中 secrets 变量，类似于模版赋值。
+# yml 文件中 secrets 变量，类似于模版赋值。
 
 在当前项目的设置【Secrets and variables】->【Actions】->【New repository secret】创建
 
