@@ -32,7 +32,7 @@ docker build -t ${{ secrets.IMG_ADDRESS }}:$GITHUB_RUN_NUMBER -f release/Dockerf
 
 > 打包成镜像，上传镜像库，登录 Linux，拉取镜像，部署
 
-## Github issues 有问题飞书通知
+## github-issues-feishu-bot 有问题飞书通知
 
 > Github 有问题创建和关闭 or 评论 的话就，就飞书通知
 
