@@ -4,7 +4,6 @@ on:
     types:
       - opened
       - edited
-      - closed
   issue_comment:
     types:
       - created
@@ -25,7 +24,7 @@ jobs:
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "😭有问题or回复: [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})"
+                    "content": "问题标题: [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})"
                   }
                 },
                 {
