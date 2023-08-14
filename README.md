@@ -36,14 +36,17 @@ docker build -t ${{ secrets.IMG_ADDRESS }}:$GITHUB_RUN_NUMBER -f release/Dockerf
 
 > Github 有问题创建和关闭 or 评论 的话就，就飞书通知
 
-1.飞书创建群聊
+1、飞书创建群聊
 
-2.加入自定义机器人
+2、加入自定义机器人
 
-3.把 webhook 复制到自己的 secrets 变量 FEISHU_WEBHOOK_URL
+3、把 webhook 复制到自己的 secrets 变量 FEISHU_WEBHOOK_URL
+
+### 飞书机器人
+
 ![secre Image](images/feishu-bot.png)
 
-接收效果
+### 接收效果
 
 ![secre Image](images/feishu.png)
 
