@@ -1,11 +1,11 @@
 name: 飞书通知
-
 on:
   issues:
     types:
       - [opened, edited, closed]
   issue_comment:
-    types: [created]
+    types:
+      - [created]
 jobs:
   send_notification:
     runs-on: ubuntu-latest
