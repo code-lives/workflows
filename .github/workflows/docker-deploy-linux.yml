@@ -1,0 +1,35 @@
+name: Docker Image CI/CD # workflow名称，可以随意改
+on: # workflow的事件钩子，告知程序说明时候出发自动部署
+  push:
+    branches: [release] # 在master分支有push操作的时候自动部署
+jobs:
+  build: # 打包并上传docker镜像
+    runs-on: ubuntu-latest # 依赖的环境
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Image
+        run: |
+          docker login --username=${{ secrets.ALI_ACCOUNT }} --password ${{ secrets.ALI_ACCOUNT_PWD }} registry.cn-beijing.aliyuncs.com
+          docker build -t ${{ secrets.STAGING_IMG_ADDRESS }}:$GITHUB_RUN_NUMBER .
+          docker push ${{ secrets.STAGING_IMG_ADDRESS }}:$GITHUB_RUN_NUMBER
+          docker tag $(docker images ${{ secrets.STAGING_IMG_ADDRESS }}:$GITHUB_RUN_NUMBER -q) ${{ secrets.STAGING_IMG_ADDRESS }}:GITHUB_RUN_NUMBER
+          docker push ${{ secrets.STAGING_IMG_ADDRESS }}:GITHUB_RUN_NUMBER
+  pull-docker:
+    needs: [build]
+    name: Pull Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }} # linux 地址
+          username: ${{ secrets.NAME }} #账号
+          password: ${{ secrets.PASSWORD }} # 密码
+          port: ${{ secrets.PORT }} # 端口 如 22
+          script: |
+            docker stop $(docker ps --filter ancestor=${{ secrets.STAGING_IMG_ADDRESS }} -q)
+            docker rm -f $(docker ps -a --filter ancestor=${{ secrets.STAGING_IMG_ADDRESS }}:GITHUB_RUN_NUMBER -q)
+            docker rmi -f $(docker images  ${{ secrets.STAGING_IMG_ADDRESS }}:GITHUB_RUN_NUMBER -q)
+            docker login --username=${{ secrets.ALI_ACCOUNT }} --password ${{ secrets.ALI_ACCOUNT_PWD }} registry.cn-beijing.aliyuncs.com
+            docker pull ${{ secrets.STAGING_IMG_ADDRESS }}:GITHUB_RUN_NUMBER
+            docker run -d -p 80:80 -p 443:443 ${{ secrets.STAGING_IMG_ADDRESS }}:GITHUB_RUN_NUMBER

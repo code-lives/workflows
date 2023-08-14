@@ -1,0 +1,44 @@
+name: 飞书通知
+
+on:
+  issues:
+    types:
+      - [opened, edited, closed]
+  issue_comment:
+    types: [created]
+jobs:
+  send_notification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 发送消息
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-Type: application/json' -d '{
+            "msg_type": "interactive",
+            "card": {
+              "elements": [
+                {
+                  "tag": "div",
+                  "text": {
+                    "tag": "lark_md",
+                    "content": "😭有问题or回复: [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})"
+                  }
+                },
+                {
+                  "tag": "action",
+                  "actions": [
+                    {
+                      "tag": "button",
+                      "text": {
+                        "tag": "plain_text",
+                        "content": "快速查看"
+                      },
+                      "url": "${{ github.event.issue.html_url }}"
+                    }
+                  ]
+                }
+              ]
+            }
+          }' $FEISHU_WEBHOOK_URL
