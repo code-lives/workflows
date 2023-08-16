@@ -50,6 +50,8 @@ docker build -t ${{ secrets.IMG_ADDRESS }}:$GITHUB_RUN_NUMBER -f release/Dockerf
 
 ![secre Image](images/feishu.png)
 
+## php composer 的 release 版本打包
+
 # 相关文档链接
 
 ### issues types 有哪些类型 比如 opened、edited、deleted、closed 等状态
@@ -59,3 +61,5 @@ docker build -t ${{ secrets.IMG_ADDRESS }}:$GITHUB_RUN_NUMBER -f release/Dockerf
 ### issues 有哪些类型的字段可以使用传递
 
 [github.event.issue.html_url 变量文档查看](https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28)
+
+## timing.yml 是做成定时每天 9 点 30 发送消息

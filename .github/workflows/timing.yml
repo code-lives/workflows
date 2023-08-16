@@ -1,0 +1,41 @@
+# name: 定时飞书通知
+# on:
+#   schedule:
+#     - cron: "30 9 * * *" # 每天UTC时间的早上9点30
+
+# jobs:
+#   send_notification:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: 发送消息
+#         env:
+#           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+#         run: |
+#           curl -X POST -H 'Content-Type: application/json' -d '{
+#             "msg_type": "interactive",
+#             "card": {
+#               "elements": [
+#                 {
+#                   "tag": "div",
+#                   "text": {
+#                     "tag": "lark_md",
+#                     "content": "这是每天定时通知的内容。"
+#                   }
+#                 },
+#                 {
+#                   "tag": "action",
+#                   "actions": [
+#                     {
+#                       "tag": "button",
+#                       "text": {
+#                         "tag": "plain_text",
+#                         "content": "快速查看"
+#                       },
+#                       "url": "https://github.com/code-lives/punch-card" # 你的仓库链接
+#                     }
+#                   ]
+#                 }
+#               ]
+#             }
+#           }' $FEISHU_WEBHOOK_URL
