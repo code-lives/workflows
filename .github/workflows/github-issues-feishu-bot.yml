@@ -23,9 +23,9 @@ jobs:
                 "title": {
                   "tag": "plain_text",
                   "content": "定时飞书通知"
-                }
+                },
+                "template": "blue"
               },
-              "template": "blue",
               "elements": [
                 {
                   "tag": "div",
