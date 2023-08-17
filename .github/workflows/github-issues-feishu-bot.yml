@@ -22,7 +22,7 @@ jobs:
               "header": {
                 "title": {
                   "tag": "plain_text",
-                  "content": "定时飞书通知"
+                  "content": "Github issues"
                 },
                 "template": "blue"
               },
@@ -31,7 +31,7 @@ jobs:
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "问题标题: [${{ github.event.issue.title }}](${{ github.event.issue.html_url }})"
+                    "content": "[${{ github.event.issue.title }}](${{ github.event.issue.html_url }})"
                   }
                 },
                 {
