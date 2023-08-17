@@ -19,6 +19,13 @@ jobs:
           curl -X POST -H 'Content-Type: application/json' -d '{
             "msg_type": "interactive",
             "card": {
+              "header": {
+                "title": {
+                  "tag": "plain_text",
+                  "content": "定时飞书通知"
+                }
+              },
+              "template": "blue",
               "elements": [
                 {
                   "tag": "div",
